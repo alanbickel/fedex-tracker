@@ -65,40 +65,6 @@ var FileParser = /** @class */ (function () {
                 _this.trackingNumbers.length > 0 ? resolve(_this.trackingNumbers) : reject();
             });
         };
-        this.parseCsv = function (headerRows) {
-            _this.trackingNumbers = [];
-            var workbook = XLSX.readFile(_this.fileName);
-            for (var i in workbook.Sheets) {
-                var sheet = workbook.Sheets[i];
-                //parse nodes
-                for (var s in sheet) {
-                    var node = sheet[s];
-                    var row = _this.getRow(s);
-                    var col = _this.getCol(s);
-                    if (s == ' ! ref')
-                        continue;
-                    if (headerRows && row == 1)
-                        continue;
-                    // console.log('ROW: ', row);
-                    // console.log('COL: ', col);
-                    // console.log('NODE', node);
-                    switch (col) {
-                        case "A": {
-                            if (node.v && node.v.length > 0) {
-                                _this.trackingNumbers.push(node.v);
-                            }
-                            break;
-                        }
-                        default:
-                            continue;
-                    }
-                }
-            }
-            // console.log(this.trackingNumbers);
-            process.exit();
-            return new Promise(function (resolve, reject) { reject(); });
-            //process.exit();
-        };
         /**
          * parse row number from excel coordinate
          */

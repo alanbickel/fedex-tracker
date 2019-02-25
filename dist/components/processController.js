@@ -65,7 +65,6 @@ var ProcessController = /** @class */ (function () {
             electron_1.dialog.showMessageBox(null, { title: "Confirm Header Rows", buttons: ['Yes', 'No'], message: "File contains Header Row?" }, function (responseIndex) {
                 controller.fileParser.parseSpreadSheet(responseIndex == 0)
                     .then(function (trackingNumbers) {
-                    console.log('tracking numbers: ', trackingNumbers);
                     var data = {
                         trackingNumbers: trackingNumbers
                     };
@@ -88,7 +87,6 @@ var ProcessController = /** @class */ (function () {
                 controller.updateClientBatchProgress(0, true);
                 controller.processResponse();
             })["catch"](function (error) {
-                console.log('HTTP CONTROLLER ERROR: ', error);
                 controller.window.send('http-error', { flag: "unexpected-http-error", message: error ? error.message : "" });
             });
         };

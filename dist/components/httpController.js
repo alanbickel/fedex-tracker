@@ -78,7 +78,6 @@ var HttpController = /** @class */ (function () {
                     var child = row.children[c];
                     var key = getKey(child);
                     if (typeof key == 'string') {
-                        console.log("key: ", key, 'value: ', child.innerText);
                         meta[key] = child.innerText;
                     }
                 }
@@ -128,7 +127,6 @@ var HttpController = /** @class */ (function () {
                                             this.index++;
                                         }
                                     }
-                                    //console.log("PEP> ", puppeteer.executablePath());
                                     this.parent.window.send('path-comm', { path: puppeteer.executablePath() });
                                     this.parent.window.send('batch-update', { status: 'browser-status-update', message: 'Initializing Http Controller' });
                                     return [4 /*yield*/, puppeteer.launch({ headless: true, executablePath: puppeteer.executablePath() })];

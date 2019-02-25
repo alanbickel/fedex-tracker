@@ -15,7 +15,6 @@ var FileWriter = /** @class */ (function () {
                 sheetData.push(headers);
                 for (var j = 0; j < group.length; j++) {
                     sheetData.push(Object.values(group[j]));
-                    console.log('j', j);
                 }
                 var worksheet = XLSX.utils.aoa_to_sheet(sheetData);
                 XLSX.utils.book_append_sheet(wb, worksheet, sheetName);
