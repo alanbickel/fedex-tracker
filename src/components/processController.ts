@@ -95,7 +95,6 @@ export default class ProcessController {
       controller.fileParser.parseSpreadSheet(responseIndex == 0)
       .then(trackingNumbers =>  {
 
-        console.log('tracking numbers: ', trackingNumbers);
         let data =  {
           trackingNumbers:trackingNumbers 
         }
@@ -122,7 +121,6 @@ export default class ProcessController {
       controller.processResponse(); 
     })
     .catch(error =>  {
-      console.log('HTTP CONTROLLER ERROR: ', error); 
       controller.window.send('http-error',  {flag:"unexpected-http-error", message:error?error.message:""}); 
     })
   }

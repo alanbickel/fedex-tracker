@@ -19,7 +19,6 @@ $(document).ready(function () {
 
   //export data to file
   $(document).on('click', ".export-btn", function(){
-    console.log('format: ', this.dataset.format);
     ipcRenderer.send('data-export',  {format: this.dataset.format}); 
   });
   //file write response from main process
@@ -36,7 +35,6 @@ $(document).ready(function () {
     isProcessing = false; 
     let message = data && data.message?data.message:"A file error has ocurred. Please try again"; 
     dialog.showMessageBox( {title:"Fedex Tracker", type:'error', message:message }); 
-    console.log('error: ', data); 
   }); 
   //input file has been parsed
   ipcRenderer.on('file-parsed', (event:Event, data:any) =>  {

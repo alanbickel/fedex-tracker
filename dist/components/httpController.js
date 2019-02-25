@@ -100,7 +100,6 @@ var HttpController = /** @class */ (function () {
         };
         this.parent = parent;
         this.trackingNumbers = trackingNumbers;
-        this.maxindex = this.trackingNumbers.length - 1;
         this.index = 0;
         this.batchSize = 30;
         this.responses = [];
@@ -123,7 +122,7 @@ var HttpController = /** @class */ (function () {
                                     paramNums = [];
                                     //build tracking numbers url param string
                                     for (i = 0; i < this.batchSize; i++) {
-                                        if (this.index < this.maxindex) {
+                                        if (this.index < this.trackingNumbers.length) {
                                             trackingNumber = this.trackingNumbers[this.index];
                                             paramNums.push(trackingNumber);
                                             this.index++;
@@ -177,7 +176,7 @@ var HttpController = /** @class */ (function () {
                                     return [4 /*yield*/, browser.close()];
                                 case 12:
                                     _a.sent();
-                                    complete = controller.index == (controller.maxindex);
+                                    complete = controller.index == (controller.trackingNumbers.length);
                                     if (complete)
                                         return [2 /*return*/, resolve()];
                                     //we have another batch to process

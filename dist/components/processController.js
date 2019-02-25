@@ -79,26 +79,6 @@ var ProcessController = /** @class */ (function () {
                 });
             });
         };
-        //confirm existence of header rows, then load CSV content
-        this.loadCsvContent = function () {
-            var controller = _this;
-            electron_1.dialog.showMessageBox(null, { title: "Confirm Header Rows", buttons: ['Yes', 'No'], message: "File contains Header Row?" }, function (responseIndex) {
-                //controller.fileParser.parseSpreadSheet(responseIndex == 0)
-                controller.fileParser.parseCsv(responseIndex == 0)
-                    .then(function (trackingNumbers) {
-                    // let data =  {
-                    //   trackingNumbers:trackingNumbers 
-                    // }
-                    // controller.trackingNumbers = trackingNumbers; 
-                    // //inform browser that file has been parsed, share list of tracking numbers
-                    // controller.window.send('file-parsed', data); 
-                    // //retrieve fedex content
-                    // controller.retrieveTrackingData(); 
-                })["catch"](function (e) {
-                    controller.window.send('file-error', { message: "Unable to parse XLSX file" });
-                });
-            });
-        };
         // initialize HTTP request chain
         this.retrieveTrackingData = function () {
             var controller = _this;

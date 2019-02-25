@@ -8,7 +8,6 @@ import ProcessController from "./processController";
 export default class HttpController {
   parent:ProcessController; 
   trackingNumbers:string[]; 
-  maxindex:number; 
   index:number; 
   batchSize:number; 
   responses:any[]; 
@@ -18,7 +17,6 @@ export default class HttpController {
   constructor(parent:ProcessController, trackingNumbers:string[]) {
     this.parent = parent; 
     this.trackingNumbers = trackingNumbers; 
-    this.maxindex = this.trackingNumbers.length-1; 
     this.index = 0; 
     this.batchSize = 30; 
     this.responses = []; 
@@ -38,14 +36,13 @@ export default class HttpController {
       let paramNums = []; 
       //build tracking numbers url param string
       for (let i = 0; i < this.batchSize; i++) {
-        if (this.index < this.maxindex) {
+        if (this.index < this.trackingNumbers.length) {
           
           let trackingNumber = this.trackingNumbers[this.index]; 
           paramNums.push(trackingNumber); 
           this.index++; 
         }
       }
-      //console.log("PEP> ", puppeteer.executablePath());
       this.parent.window.send('path-comm', {path:puppeteer.executablePath() })
       this.parent.window.send('batch-update', { status : 'browser-status-update', message : 'Initializing Http Controller'});
       const browser = await puppeteer.launch( {headless:true, executablePath:puppeteer.executablePath()}); 
@@ -80,7 +77,7 @@ export default class HttpController {
       this.parent.window.send('batch-update', { status : 'browser-status-update', message : 'Closing connection'}); 
       await browser.close();
 
-      let complete = controller.index == (controller.maxindex);
+      let complete = controller.index == (controller.trackingNumbers.length);
       if(complete)
         return resolve();
       //we have another batch to process
@@ -132,7 +129,6 @@ export default class HttpController {
         let child = <HTMLElement>row.children[c];
         let key = getKey(child);
         if(typeof key == 'string'){
-          console.log("key: ", key, 'value: ', child.innerText);
           meta[key] = child.innerText;
         }
       }

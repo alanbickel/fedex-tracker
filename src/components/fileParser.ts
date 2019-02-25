@@ -89,49 +89,6 @@ export default class FileParser{
       this.trackingNumbers.length  > 0 ? resolve(this.trackingNumbers) : reject();
     });    
   }
-
-  parseCsv = (headerRows : boolean) : Promise<any> => {
-    this.trackingNumbers = [];
-    let workbook = XLSX.readFile(this.fileName);
-
-    for(let i in workbook.Sheets){
-      let sheet = workbook.Sheets[i];
-       //parse nodes
-       for(let s in sheet){
-        let node = sheet[s];
-        let row = this.getRow(s);
-        let col = this.getCol(s);
-        if(s == ' ! ref') continue;
-        if(headerRows && row ==1) continue;
-
-       // console.log('ROW: ', row);
-       // console.log('COL: ', col);
-       // console.log('NODE', node);
-
-        switch(col){
-
-          case "A": {
-            
-            if(node.v && node.v.length > 0){
-              this.trackingNumbers.push(node.v);
-              
-            }
-            break;
-          }
-          default : 
-            continue;
-        }
-      }
-      
-    }
-
-
-   // console.log(this.trackingNumbers);
-    process.exit();
-    return new Promise((resolve, reject) => {reject()});
-    //process.exit();
-  }
-
   /**
    * parse row number from excel coordinate
    */
