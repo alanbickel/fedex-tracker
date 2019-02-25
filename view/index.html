@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- need to define jQuery object on window, as node's default jQuery hook ignores this assignment-->
+    <script> window.jQuery = window.$ = require('jquery'); </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="../dist/client/script.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row"><h3 id="app-title">FedEx Tracking</h3></div>
+      <!-- buttons!-->
+      <div class="row buttons-container">
+        <button class="btn btn-primary" id="file-selector" type="button">Import
+          Tracking Numbers</button>
+        <button class="btn btn-primary export-btn" id="export-txt" data-format="csv" disabled>Export Text (TSV)
+          </button>
+        <button class="btn btn-primary export-btn" id="export-xlsx" data-format="xlsx" disabled>Export XLSX
+          </button>
+      </div>
+      <!-- layout control-->
+      <div class="row">
+        <div class="main-content col-sm-12">
+          <div id="tracking-table" class="tracking-table">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- blockUI message container-->
+    <div id="growl-loading" class="growl-loading">
+      <div class="growl-wrapper">
+        <div id="growl-message" class="growl-message"></div>
+      </div>
+    </div>
+  </body>
+</html>
